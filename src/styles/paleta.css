@@ -1,0 +1,21 @@
+:root {
+  --color-text: #111827;
+  --color-text-secondary: #6b7280;
+
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-soft: #dbeafe;
+  --color-primary-soft-strong: #bfdbfe;
+
+  --color-success: #16a34a;
+  --color-success-soft: #dcfce7;
+
+  --color-bg: #f3f4f6;
+  --color-bg-alt: #e5e7eb;
+  --color-white: #ffffff;
+  --color-border: #e5e7eb;
+  --color-surface: #f9fafb;
+  --color-surface-strong: #eef2ff;
+  --color-overlay: rgba(17, 24, 39, 0.35);
+}
+
