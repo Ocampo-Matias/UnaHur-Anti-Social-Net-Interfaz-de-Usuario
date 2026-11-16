@@ -4,7 +4,7 @@ import '../styles/About.css';
 export default function AboutPage() {
   return (
     <>
-      <Navbar isLoggedIn={false} />
+      <Navbar />
 
       <main className="page-shell">
         <section className="about-panel">

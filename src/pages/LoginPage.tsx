@@ -1,36 +1,83 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
+import { useAuth } from '../context/AuthContext';
 import '../styles/Login.css';
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+  const [nickName, setNickName] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!nickName.trim()) {
+      setError('Por favor ingresá tu usuario.');
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      setError(null);
+      await login(nickName.trim());
+      navigate('/');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('No se pudo iniciar sesión. Verificá tu usuario.');
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   return (
     <>
-      <Navbar isLoggedIn={false} />
+      <Navbar />
 
       <main className="auth-page">
         <div className="auth-card">
           <div className="auth-card-body">
             <h1 className="page-title auth-title">Iniciar sesión</h1>
 
-            <form className="auth-form">
-              <div className="field-group">
-                <label className="field-label">Usuario</label>
-                <input type="text" className="auth-input" placeholder="Ingresá tu usuario" />
+            {error && (
+              <div className="alert alert-danger py-2 small mb-3" role="alert">
+                {error}
               </div>
+            )}
 
+            <form className="auth-form" onSubmit={handleSubmit}>
               <div className="field-group field-group-last">
-                <label className="field-label">Email</label>
-                <input type="email" className="auth-input" placeholder="Ingresá tu email" />
+                <label className="field-label" htmlFor="login-nickname">
+                  Usuario (nickName)
+                </label>
+                <input
+                  id="login-nickname"
+                  type="text"
+                  className="auth-input"
+                  placeholder="Ej: luna, sol..."
+                  value={nickName}
+                  onChange={(e) => setNickName(e.target.value)}
+                  disabled={submitting}
+                  autoComplete="username"
+                  required
+                />
               </div>
 
-              <button type="button" className="primary-button auth-submit-button">
-                Iniciar sesión
+              <button
+                type="submit"
+                className="primary-button auth-submit-button"
+                disabled={submitting || !nickName.trim()}
+              >
+                {submitting ? 'Iniciando sesión...' : 'Iniciar sesión'}
               </button>
             </form>
 
             <p className="auth-footer">
-              ¿No tenés una cuenta?{' '}
-              <Link to="/registro">Registrate</Link>
+              ¿No tenés una cuenta? <Link to="/registro">Registrate</Link>
             </p>
           </div>
         </div>

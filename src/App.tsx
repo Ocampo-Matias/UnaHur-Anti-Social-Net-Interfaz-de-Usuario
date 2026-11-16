@@ -1,4 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { AuthProvider } from './context/AuthProvider';
+import ProtectedRoute from './components/ProtectedRoute';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -9,19 +11,32 @@ import PostDetailPage from './pages/PostDetailPage';
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <div className="app-page">
-        <Routes>
-          <Route path="/" element={<HomePage isLoggedIn={true} />} />
-          <Route path="/sobre-nosotros" element={<AboutPage />} />
-          <Route path="/iniciar-sesion" element={<LoginPage />} />
-          <Route path="/registro" element={<RegisterPage />} />
-          <Route path="/perfil" element={<ProfilePage />} />
-          <Route path="/publicacion/:id" element={<PostDetailPage />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-        <Footer />
-      </div>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <div className="app-page">
+          <Routes>
+            {/* Rutas públicas — cualquiera puede verlas */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/sobre-nosotros" element={<AboutPage />} />
+            <Route path="/publicacion/:id" element={<PostDetailPage />} />
+            <Route path="/iniciar-sesion" element={<LoginPage />} />
+            <Route path="/registro" element={<RegisterPage />} />
+
+            {/* Rutas protegidas — redirigen a /iniciar-sesion si no hay sesión */}
+            <Route
+              path="/perfil"
+              element={
+                <ProtectedRoute>
+                  <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+          <Footer />
+        </div>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }

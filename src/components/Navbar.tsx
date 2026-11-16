@@ -1,16 +1,27 @@
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import '../styles/Navbar.css';
 
 type NavbarProps = {
-  isLoggedIn: boolean;
+  isLoggedIn?: boolean;
 };
 
-export default function Navbar({ isLoggedIn }: NavbarProps) {
+export default function Navbar({ isLoggedIn: propIsLoggedIn }: NavbarProps) {
+  const { user, isLoggedIn: authIsLoggedIn, logout } = useAuth();
+  const navigate = useNavigate();
   const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+
+  const isLoggedIn = propIsLoggedIn !== undefined ? propIsLoggedIn : authIsLoggedIn;
 
   const toggleNav = () => setIsNavCollapsed((prev) => !prev);
   const closeNav = () => setIsNavCollapsed(true);
+
+  const handleLogout = () => {
+    closeNav();
+    logout();
+    navigate('/');
+  };
 
   const menuItems = isLoggedIn
     ? [
@@ -65,6 +76,19 @@ export default function Navbar({ isLoggedIn }: NavbarProps) {
                   </NavLink>
                 </li>
               ))}
+
+              {isLoggedIn && (
+                <li className="nav-item ms-md-2">
+                  <button
+                    type="button"
+                    className="nav-link custom-nav-link text-danger border-0 bg-transparent"
+                    onClick={handleLogout}
+                    title={user?.nickName ? `Conectado como @${user.nickName}` : undefined}
+                  >
+                    Cerrar sesión
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
         </div>

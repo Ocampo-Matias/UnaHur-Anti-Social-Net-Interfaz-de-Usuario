@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import type { Post } from '../data/mockData';
+import type { PostUI } from '../types';
 import TagPill from './TagPill';
 
 type PostCardProps = {
-  post: Post;
+  post: PostUI;
   variant?: 'home' | 'profile';
 };
 
