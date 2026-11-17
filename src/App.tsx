@@ -15,14 +15,12 @@ export default function App() {
       <BrowserRouter>
         <div className="app-page">
           <Routes>
-            {/* Rutas públicas — cualquiera puede verlas */}
             <Route path="/" element={<HomePage />} />
             <Route path="/sobre-nosotros" element={<AboutPage />} />
-            <Route path="/publicacion/:id" element={<PostDetailPage />} />
+            <Route path="/post/:id" element={<PostDetailPage />} />
             <Route path="/iniciar-sesion" element={<LoginPage />} />
             <Route path="/registro" element={<RegisterPage />} />
 
-            {/* Rutas protegidas — redirigen a /iniciar-sesion si no hay sesión */}
             <Route
               path="/perfil"
               element={

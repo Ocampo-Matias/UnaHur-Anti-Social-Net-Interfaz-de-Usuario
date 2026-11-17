@@ -10,11 +10,20 @@ export default function LoginPage() {
   const [nickName, setNickName] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!nickName.trim()) {
       setError('Por favor ingresá tu usuario.');
+      return;
+    }
+    if (!password.trim()) {
+      setError('Por favor ingresá tu contraseña.');
+      return;
+    }
+    if (password !== '123456') {
+      setError('Contraseña incorrecta. Debe ser 123456');
       return;
     }
 
@@ -65,12 +74,30 @@ export default function LoginPage() {
                   autoComplete="username"
                   required
                 />
+
+
+              </div>
+              <div className="field-group field-group-last">
+                <label className="field-label" htmlFor="login-password">
+                  Contraseña
+                </label>
+                <input
+                  id="login-password"
+                  type="password"
+                  className="auth-input"
+                  placeholder="Ingresá 123456"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  disabled={submitting}
+                  autoComplete="current-password"
+                  required
+                />
               </div>
 
               <button
                 type="submit"
                 className="primary-button auth-submit-button"
-                disabled={submitting || !nickName.trim()}
+                disabled={submitting || !nickName.trim() || !password.trim()}
               >
                 {submitting ? 'Iniciando sesión...' : 'Iniciar sesión'}
               </button>

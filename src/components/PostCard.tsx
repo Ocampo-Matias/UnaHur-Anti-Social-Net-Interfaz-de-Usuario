@@ -25,7 +25,7 @@ export default function PostCard({ post, variant = 'home' }: PostCardProps) {
               <img
                 key={`${post.id}-${index}`}
                 src={image}
-                alt={`${post.user} publicación ${index + 1}`}
+                alt={`${post.user} post ${index + 1}`}
                 className={post.images.length > 1 && index === 0 ? 'main-image' : 'secondary-image'}
               />
             ))}
@@ -43,12 +43,12 @@ export default function PostCard({ post, variant = 'home' }: PostCardProps) {
         {isProfile ? (
           <div className="profile-card-footer">
             <span className="comment-count">{post.visibleComments} comentarios visibles</span>
-            <Link to={`/publicacion/${post.id}`} className="primary-button primary-button-small">
+            <Link to={`/post/${post.id}`} className="primary-button primary-button-small">
               Ver más
             </Link>
           </div>
         ) : (
-          <Link to={`/publicacion/${post.id}`} className="primary-button">
+          <Link to={`/post/${post.id}`} className="primary-button">
             Ver más
           </Link>
         )}

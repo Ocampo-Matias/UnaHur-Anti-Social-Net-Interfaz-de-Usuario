@@ -155,7 +155,7 @@ export default function HomePage() {
       setImageUrls(['']);
       setSelectedTagIds([]);
 
-      navigate(`/publicacion/${newPost.id}`);
+      navigate(`/post/${newPost.id}`);
     } catch {
       alert('Ocurrió un error al crear la publicación.');
     } finally {
