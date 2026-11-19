@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage';
 import AboutPage from './pages/AboutPage';
 import ProfilePage from './pages/ProfilePage';
 import PostDetailPage from './pages/PostDetailPage';
+import CreatePostPage from './pages/CreatePostPage';
 
 export default function App() {
   return (
@@ -26,6 +27,14 @@ export default function App() {
               element={
                 <ProtectedRoute>
                   <ProfilePage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/crear-publicacion"
+              element={
+                <ProtectedRoute>
+                  <CreatePostPage />
                 </ProtectedRoute>
               }
             />

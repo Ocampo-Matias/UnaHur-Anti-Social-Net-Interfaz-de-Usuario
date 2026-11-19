@@ -23,7 +23,7 @@ export default function LoginPage() {
       return;
     }
     if (password !== '123456') {
-      setError('Contraseña incorrecta. Debe ser 123456');
+      setError('Contraseña incorrecta.');
       return;
     }
 
@@ -85,7 +85,7 @@ export default function LoginPage() {
                   id="login-password"
                   type="password"
                   className="auth-input"
-                  placeholder="Ingresá 123456"
+                  placeholder="Ingresá tu contraseña"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   disabled={submitting}

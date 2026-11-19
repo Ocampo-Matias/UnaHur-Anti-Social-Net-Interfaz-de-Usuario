@@ -41,7 +41,7 @@ export default function Navbar({ isLoggedIn: propIsLoggedIn }: NavbarProps) {
       <nav className="navbar navbar-expand-md custom-navbar p-0">
         <div className="container-fluid navbar-shell d-flex align-items-center justify-content-between">
           <Link to="/" className="navbar-brand brand-logo" onClick={closeNav}>
-            <span className="brand-icon">U</span>
+            <img className="brand-mark" src="/logo-180.png" alt="" />
             <span className="brand-name">
               UnaHur <span className="brand-accent">Anti-Social</span>
             </span>
@@ -83,7 +83,7 @@ export default function Navbar({ isLoggedIn: propIsLoggedIn }: NavbarProps) {
                     type="button"
                     className="nav-link custom-nav-link text-danger border-0 bg-transparent"
                     onClick={handleLogout}
-                    title={user?.nickName ? `Conectado como @${user.nickName}` : undefined}
+                    title={user?.nickName ? `Conectado como ${user.nickName}` : undefined}
                   >
                     Cerrar sesión
                   </button>

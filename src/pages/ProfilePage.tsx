@@ -96,7 +96,7 @@ export default function ProfilePage() {
               <div className="profile-avatar">{initial}</div>
               <div>
                 <p className="profile-label">Tu Perfil</p>
-                <h1 className="page-title">@{user.nickName}</h1>
+                <h1 className="page-title">{user.nickName}</h1>
                 <p className="text-muted small mb-0">{user.email}</p>
               </div>
             </div>
@@ -104,7 +104,12 @@ export default function ProfilePage() {
         </section>
 
         <section className="profile-posts">
-          <h2 className="section-title">Tus Publicaciones ({profilePosts.length})</h2>
+          <div className="d-flex align-items-center justify-content-between gap-3 mb-3">
+            <h2 className="section-title mb-0">Tus Publicaciones ({profilePosts.length})</h2>
+            <Link to="/crear-publicacion" className="primary-button primary-button-small">
+              Nueva publicación
+            </Link>
+          </div>
 
           {loading ? (
             <div className="text-center py-4">
@@ -113,11 +118,6 @@ export default function ProfilePage() {
           ) : profilePosts.length === 0 ? (
             <div className="text-center py-5 card p-4">
               <p className="text-muted mb-3">Aún no creaste ninguna publicación.</p>
-              <div>
-                <Link to="/" className="primary-button primary-button-small">
-                  Crear mi primera publicación
-                </Link>
-              </div>
             </div>
           ) : (
             <div className="profile-posts-grid">
