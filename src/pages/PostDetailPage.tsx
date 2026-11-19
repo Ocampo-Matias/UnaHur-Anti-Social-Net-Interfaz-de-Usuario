@@ -55,6 +55,8 @@ export default function PostDetailPage() {
         if (ignore) return;
 
         setPost(postData);
+        setActiveImageIndex(0);
+        setCommentText('');
         setImages(postImages.map((img) => img.url));
         setComments(
           postComments.map((c) => ({
@@ -231,7 +233,7 @@ export default function PostDetailPage() {
               <h2 className="section-title">Comentarios ({comments.length})</h2>
 
               {comments.length === 0 ? (
-                <p className="text-muted my-3">No hay comentarios aún. ¡Escribe el primero!</p>
+                <p className="text-muted my-3">No hay comentarios aún. ¡Escribí el primero!</p>
               ) : (
                 <div className="comment-list">
                   {comments.map((comment) => (

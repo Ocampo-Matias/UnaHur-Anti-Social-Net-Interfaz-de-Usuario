@@ -61,7 +61,7 @@ export default function LoginPage() {
             <form className="auth-form" onSubmit={handleSubmit}>
               <div className="field-group field-group-last">
                 <label className="field-label" htmlFor="login-nickname">
-                  Usuario (nickName)
+                  Nombre de usuario
                 </label>
                 <input
                   id="login-nickname"

@@ -11,6 +11,7 @@ export default function ProfilePage() {
   const { user, isLoggedIn } = useAuth();
   const [profilePosts, setProfilePosts] = useState<PostUI[]>([]);
   const [loading, setLoading] = useState(Boolean(user));
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!user) return;
@@ -20,6 +21,7 @@ export default function ProfilePage() {
     async function loadProfilePosts() {
       try {
         setLoading(true);
+        setError(null);
         const apiPosts = await getPosts(user!.id);
 
         if (ignore) return;
@@ -45,6 +47,11 @@ export default function ProfilePage() {
         if (!ignore) {
           setProfilePosts(postsWithData);
         }
+      } catch {
+        if (!ignore) {
+          setProfilePosts([]);
+          setError('No se pudieron cargar tus publicaciones. Intentá nuevamente.');
+        }
       } finally {
         if (!ignore) {
           setLoading(false);
@@ -65,7 +72,7 @@ export default function ProfilePage() {
         <Navbar />
         <main className="page-shell">
           <div className="card text-center p-5 my-4">
-            <h2 className="section-title mb-2">No has iniciado sesión</h2>
+            <h2 className="section-title mb-2">No iniciaste sesión</h2>
             <p className="text-muted mb-4">
               Iniciá sesión para ver tu perfil y tus publicaciones compartidas.
             </p>
@@ -114,6 +121,10 @@ export default function ProfilePage() {
           {loading ? (
             <div className="text-center py-4">
               <p className="text-muted">Cargando tus publicaciones...</p>
+            </div>
+          ) : error ? (
+            <div className="alert alert-warning text-center" role="alert">
+              {error}
             </div>
           ) : profilePosts.length === 0 ? (
             <div className="text-center py-5 card p-4">

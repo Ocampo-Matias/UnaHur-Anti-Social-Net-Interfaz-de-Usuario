@@ -9,6 +9,7 @@ type PostCardProps = {
 
 export default function PostCard({ post, variant = 'home' }: PostCardProps) {
   const isProfile = variant === 'profile';
+  const commentLabel = post.visibleComments === 1 ? 'comentario' : 'comentarios';
 
   return (
     <article className="post-card">
@@ -25,7 +26,7 @@ export default function PostCard({ post, variant = 'home' }: PostCardProps) {
               <img
                 key={`${post.id}-${index}`}
                 src={image}
-                alt={`${post.user} post ${index + 1}`}
+                alt={`${post.user}, publicación ${index + 1}`}
                 className={post.images.length > 1 && index === 0 ? 'main-image' : 'secondary-image'}
               />
             ))}
@@ -42,15 +43,22 @@ export default function PostCard({ post, variant = 'home' }: PostCardProps) {
 
         {isProfile ? (
           <div className="profile-card-footer">
-            <span className="comment-count">{post.visibleComments} comentarios visibles</span>
+            <span className="comment-count">
+              {post.visibleComments} {commentLabel}
+            </span>
             <Link to={`/post/${post.id}`} className="primary-button primary-button-small">
               Ver más
             </Link>
           </div>
         ) : (
-          <Link to={`/post/${post.id}`} className="primary-button">
-            Ver más
-          </Link>
+          <div className="feed-post-footer">
+            <span className="comment-count">
+              {post.visibleComments} {commentLabel}
+            </span>
+            <Link to={`/post/${post.id}`} className="primary-button">
+              Ver más
+            </Link>
+          </div>
         )}
       </div>
     </article>

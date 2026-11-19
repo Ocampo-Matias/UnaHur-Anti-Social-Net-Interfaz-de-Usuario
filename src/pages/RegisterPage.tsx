@@ -25,7 +25,7 @@ export default function RegisterPage() {
       await register(nickName.trim(), email.trim());
       navigate('/');
     } catch {
-      setError('No se pudo registrar el usuario. Es posible que el nickName ya exista.');
+      setError('No se pudo registrar el usuario. Es posible que el nombre ya esté registrado.');
     } finally {
       setSubmitting(false);
     }
@@ -49,7 +49,7 @@ export default function RegisterPage() {
             <form className="auth-form" onSubmit={handleSubmit}>
               <div className="field-group">
                 <label className="field-label" htmlFor="register-nickname">
-                  Usuario (nickName)
+                  Nombre de usuario
                 </label>
                 <input
                   id="register-nickname"
@@ -66,7 +66,7 @@ export default function RegisterPage() {
 
               <div className="field-group field-group-last">
                 <label className="field-label" htmlFor="register-email">
-                  Email
+                  Correo electrónico
                 </label>
                 <input
                   id="register-email"

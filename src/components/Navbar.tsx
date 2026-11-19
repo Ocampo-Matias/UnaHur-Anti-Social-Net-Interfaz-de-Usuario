@@ -25,12 +25,12 @@ export default function Navbar({ isLoggedIn: propIsLoggedIn }: NavbarProps) {
 
   const menuItems = isLoggedIn
     ? [
-        { label: 'Home', to: '/' },
+        { label: 'Inicio', to: '/' },
         { label: 'Sobre nosotros', to: '/sobre-nosotros' },
         { label: 'Perfil', to: '/perfil' },
       ]
     : [
-        { label: 'Home', to: '/' },
+        { label: 'Inicio', to: '/' },
         { label: 'Sobre nosotros', to: '/sobre-nosotros' },
         { label: 'Iniciar sesión', to: '/iniciar-sesion' },
         { label: 'Registrarse', to: '/registro' },

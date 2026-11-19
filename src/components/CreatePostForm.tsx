@@ -53,15 +53,25 @@ export default function CreatePostForm({ onCreated }: CreatePostFormProps) {
       setSubmitting(true);
       setError(null);
 
-      const newPost = await createPost({
-        description: description.trim(),
-        userId: user.id,
-        tagIds: selectedTagIds,
-      });
+      let newPost: ApiPost;
+      try {
+        newPost = await createPost({
+          description: description.trim(),
+          userId: user.id,
+          tagIds: selectedTagIds,
+        });
+      } catch {
+        setError('Ocurrió un error al crear la publicación. Intentá nuevamente.');
+        return;
+      }
 
       const validUrls = imageUrls.map((url) => url.trim()).filter(Boolean);
-      for (const url of validUrls) {
-        await createPostImage({ url, postId: newPost.id });
+      try {
+        for (const url of validUrls) {
+          await createPostImage({ url, postId: newPost.id });
+        }
+      } catch {
+        setError('La publicación se creó, pero no se pudieron guardar todas las imágenes.');
       }
 
       setDescription('');
